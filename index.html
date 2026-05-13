@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMK Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#000,#4b0000,#d40000);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.login-box{
+    width:90%;
+    max-width:380px;
+    background:#111;
+    padding:30px 25px;
+    border-radius:25px;
+    border:3px solid red;
+    box-shadow:0 0 30px rgba(255,0,0,0.5);
+    text-align:center;
+}
+
+.logo{
+    width:80px;
+    margin-bottom:15px;
+}
+
+h2{
+    color:red;
+    margin-bottom:10px;
+}
+
+p{
+    font-size:14px;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    background:red;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#b30000;
+}
+
+.hidden{
+    display:none;
+}
+
+#msg{
+    margin-top:15px;
+    color:#ffb3b3;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <img src="logo.png" class="logo" alt="Logo">
+
+    <h2>DMK Login</h2>
+    <p>மின்னஞ்சல் OTP மூலம் உள்நுழையவும்</p>
+
+    <div id="emailBox">
+        <input type="email" id="email" placeholder="Enter your email">
+        <button onclick="sendOTP()">Send OTP</button>
+    </div>
+
+    <div id="otpBox" class="hidden">
+        <input type="text" id="otp" placeholder="Enter OTP">
+        <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+emailjs.init("YOUR_PUBLIC_KEY");
+
+let generatedOTP = "";
+
+function sendOTP(){
+    let email = document.getElementById("email").value;
+    let msg = document.getElementById("msg");
+
+    if(email === ""){
+        msg.innerText = "Please enter your email";
+        return;
+    }
+
+    generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+    let params = {
+        user_email: email,
+        otp_code: generatedOTP
+    };
+
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", params)
+    .then(function(){
+        msg.innerText = "OTP sent successfully";
+        document.getElementById("emailBox").classList.add("hidden");
+        document.getElementById("otpBox").classList.remove("hidden");
+    })
+    .catch(function(){
+        msg.innerText = "OTP sending failed";
+    });
+}
+
+function verifyOTP(){
+    let enteredOTP = document.getElementById("otp").value;
+
+    if(enteredOTP === generatedOTP){
+        localStorage.setItem("dmkLogin", "true");
+        window.location.href = "dashboard.html";
+    }else{
+        document.getElementById("msg").innerText = "Wrong OTP";
+    }
+}
+</script>
+
+</body>
+</html>
