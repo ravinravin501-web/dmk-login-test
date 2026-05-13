@@ -22,6 +22,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 color:white;
+padding:20px;
 }
 
 .login-box{
@@ -41,10 +42,21 @@ margin-bottom:15px;
 font-size:45px;
 }
 
-p{
-margin-bottom:25px;
+.quote{
+color:#ffcccc;
 font-size:18px;
-line-height:1.5;
+line-height:1.8;
+margin-bottom:12px;
+font-style:italic;
+text-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+
+.sub-quote{
+color:white;
+font-size:16px;
+line-height:1.9;
+margin-bottom:25px;
+opacity:0.9;
 }
 
 button{
@@ -73,7 +85,7 @@ color:#ffb3b3;
 
 .user-box{
 margin-top:20px;
-padding:15px;
+padding:20px;
 background:#1b1b1b;
 border-radius:15px;
 display:none;
@@ -92,6 +104,26 @@ margin-bottom:10px;
 color:red;
 }
 
+.home-btn{
+display:inline-block;
+margin-top:20px;
+background:linear-gradient(135deg,#ff0000,#8b0000);
+color:white;
+padding:14px 28px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+border:2px solid white;
+box-shadow:0 0 15px rgba(255,0,0,0.5);
+transition:0.3s;
+}
+
+.home-btn:hover{
+background:linear-gradient(135deg,#ff1a1a,#b30000);
+transform:scale(1.05);
+}
+
 </style>
 </head>
 
@@ -101,8 +133,13 @@ color:red;
 
 <h1>DMK LOGIN</h1>
 
-<p>
-மின்னஞ்சல் மூலம் பாதுகாப்பான உள்நுழைவு
+<p class="quote">
+“சமூகநீதி • சமத்துவம் • முன்னேற்றம்”
+</p>
+
+<p class="sub-quote">
+இணைப்பில் இருங்கள் • மேலும் தகவல்களை பெற <br>
+உடனுக்குடன் இணைய Login செய்யுங்கள்
 </p>
 
 <button onclick="googleLogin()">
@@ -118,6 +155,13 @@ Sign in with Google
 <h2 id="userName"></h2>
 
 <p id="userEmail"></p>
+
+<a href="https://dmk-it-wing-kanyakumari.netlify.app/"
+class="home-btn">
+
+🏠 Go To Home
+
+</a>
 
 </div>
 
